@@ -30,6 +30,10 @@ export class EnvironmentVariables {
   @IsString()
   @ValidateIf((env) => env.STORAGE_TYPE === StorageType.Local)
   STORAGE_LOCAL_PATH?: string;
+
+  @IsString()
+  @IsOptional()
+  ALLOWED_ORIGINS: string;
 }
 
 export function validate(config: Record<string, unknown>) {

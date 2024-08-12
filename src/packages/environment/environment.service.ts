@@ -28,4 +28,10 @@ export class EnvironmentService {
       this.configService.get<string>('STORAGE_LOCAL_PATH') ?? '.local-storage'
     );
   }
+
+  getAllowedOrigins(): string {
+    return (
+      this.configService.get<string>('ALLOWED_ORIGINS') ?? '*'
+    );
+  }
 }

@@ -1,4 +1,5 @@
 import { Controller, Get, Param, Redirect, Res } from '@nestjs/common';
+import { EnvironmentService } from '../packages/environment/environment.service';
 import { FaviconService } from './favicon.service';
 import { Response } from 'express';
 import { DEFAULT_SIZE, SUPPORTED_SIZES } from './favicon.constants';
@@ -7,12 +8,15 @@ import { Domain } from './utils/domain';
 
 @Controller()
 export class FaviconController {
-  constructor(private readonly faviconService: FaviconService) {}
+  constructor(private readonly faviconService: FaviconService,
+              private readonly environmentService: EnvironmentService) {
+  }
 
   @Get()
   @Redirect('https://github.com/twentyhq/favicon/blob/main/README.md', 301)
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  redirectToReadme() {}
+  redirectToReadme() {
+  }
 
   @Get('/health')
   checkHealth(@Res() res: Response) {
@@ -34,6 +38,8 @@ export class FaviconController {
     @Param() params: { domainName: string; size: string },
     @Res() res: Response,
   ) {
+    res.set('Access-Control-Allow-Origin', this.environmentService.getAllowedOrigins());
+
     const domainName = params.domainName;
     const size = params.size ?? DEFAULT_SIZE;
     if (!Domain.checkDomainIsValid(domainName)) {
