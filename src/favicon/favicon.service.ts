@@ -90,10 +90,7 @@ export class FaviconService {
 
     const faviconFiles: Array<Favicon> = [];
     const faviconFetchPromises = faviconUrls.map((url): Promise<Favicon> => {
-      return this.getImageFromUrl(url).catch((error) => {
-        console.error(error);
-        return null;
-      });
+      return this.getImageFromUrl(url).catch((error) => null);
     });
 
     for (const promise of faviconFetchPromises) {
