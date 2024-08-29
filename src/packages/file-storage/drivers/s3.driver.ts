@@ -70,7 +70,7 @@ export class S3Driver implements StorageDriver {
 
       return Readable.from(file.Body);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return;
     }
   }
@@ -81,7 +81,7 @@ export class S3Driver implements StorageDriver {
 
       return true;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       if (error instanceof NotFound) {
         return false;
       }
