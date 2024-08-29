@@ -12,12 +12,6 @@ export class FaviconController {
               private readonly environmentService: EnvironmentService) {
   }
 
-  @Get()
-  @Redirect('https://github.com/twentyhq/favicon/blob/main/README.md', 301)
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  redirectToReadme() {
-  }
-
   @Get('/health')
   checkHealth(@Res() res: Response) {
     res.status(200).send();
